@@ -112,7 +112,13 @@ export default class SearchBox extends Component {
                             <p>(Click any above suggested word for instant search)</p>
                         </div>
                     )
-                    : (noneFound ? <div>Nothing found!</div> : null)
+                    : (noneFound
+                        ? (
+                            <div className="noneFoundMsg">
+                                <span>Nothing found! 🙊 says, "Hmm, maybe this Shabdakosh is not as cool as I thought!" </span>
+                            </div>
+                        ) : null
+                    )
                     }
                 </div>
                 {dictionaryWord && dictionaryDefinition &&
