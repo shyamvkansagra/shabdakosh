@@ -15,6 +15,7 @@
     height: 20px;
     border-radius: 6px;
     outline: none;
+    font-size: 16px;
 }
 
 .searchBox button {
@@ -42,5 +43,20 @@ button:focus {outline: 0}
 }
 
 .definitionContainer p {
+    font-size: 20px;
+}
+
+.wordSuggestions {
+    margin-top: 20px;
+}
+
+.wordSuggestions p {
+    font-size: 10px;
+}
+
+.wordSuggestions button {
+    border: none;
+    background: yellow;
+    margin: 4px;
     font-size: 20px;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 
-export default class SearchBox extends Component {
+export default class WordDescription extends Component {
     render() {
         const { dictionaryWord, dictionaryDefinition } = this.props;
         return (
