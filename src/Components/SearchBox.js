@@ -33,8 +33,9 @@ export default class SearchBox extends Component {
     handleDictionarySearch = () => {
         const { searchTerm } = this.state;
         const { dictionary } = this.props;
-        console.log(searchTerm);
+        
         const searchResult = dictionary[searchTerm.toLowerCase()];
+        
         if (searchResult) {
             // Match found!
             this.setState({
