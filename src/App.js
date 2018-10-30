@@ -4,42 +4,32 @@ import SearchBox from './Components/SearchBox';
 import Loading from './Components/Loading';
 
 class App extends Component {
-    state = {
-        dictionary: null,
-        showLoading: false,
+    state = { dictionary: null, showLoading: false }
+
+    dictionaryTxtToObj = data => {
+        const dataArr = data.split('\n\n');
+        const dictionaryObj = {};
+        dataArr.forEach(d => {
+            const dataDefinition = d.split(' ');
+            const [dictionaryWord] = dataDefinition;
+            dataDefinition.shift();
+            const dictionaryDefinition = dataDefinition.join(' ');
+            dictionaryObj[dictionaryWord.toLowerCase()] = { dictionaryWord, dictionaryDefinition };
+        });
+       return dictionaryObj;
     }
 
-  setDB = () => {
-    const setState = value => {
-        this.setState({ dictionary: value, showLoading: false });
-    }
-    fetch(
-        'https://raw.githubusercontent.com/shyamvkansagra/shabdakosh/development/dictionary.txt'
-    )
+    setDictionaryInState = () => fetch('https://raw.githubusercontent.com/shyamvkansagra/shabdakosh/development/dictionary.txt')
         .then(res => res.text())
-        .then(function(data) {
-            const dataArr = data.split('\n\n');
-            const wordDescriptions = {};
-            dataArr.forEach(d => {
-                const dataDefinition = d.split(' ');
-                const dictionaryWord = dataDefinition[0];
-                dataDefinition.shift();
-                const dictionaryDefinition = dataDefinition.join(' ');
-                wordDescriptions[dictionaryWord.toLowerCase()] = { dictionaryWord, dictionaryDefinition };
-            });
-            const dictionary = Object.assign({}, wordDescriptions);
-            setState(dictionary);
-            return;
-        })
-        .catch(function(err) {
-            console.log('Fetch Error :-S', err);
-        });
-  };
+        .then(data => this.setState({
+            dictionary: this.dictionaryTxtToObj(data),
+            showLoading: false
+        }))
+        .catch(err => console.log('Fetch Error:', err));
 
     componentDidMount() {
         if (!this.state.dictionary) {
-            this.setDB();
-            this.setState({ showLoading: true });
+            this.setState({ showLoading: true }, this.setDictionaryInState);
         }
     }
 
@@ -51,8 +41,8 @@ class App extends Component {
                 Welcome to Shabdakosh
             </header>
             {showLoading
-                ? (<Loading loadingMsg="Dictionary is loading, please wait!" />)
-                : (<SearchBox dictionary={dictionary} />)
+                ? <Loading loadingMsg="Dictionary is loading, please wait!" />
+                : <SearchBox dictionary={dictionary} />
             }
             </div>
         );

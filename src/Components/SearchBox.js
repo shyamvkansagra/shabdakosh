@@ -30,7 +30,7 @@ export default class SearchBox extends Component {
 
     }
 
-    handleDictionarySearch = () => {
+    handleSearch = () => {
         const { searchTerm } = this.state;
         const { dictionary } = this.props;
         
@@ -45,9 +45,9 @@ export default class SearchBox extends Component {
             });
         } else {
             // Maybe there was typo
-            const completion_list = Object.keys(dictionary);
+            const completionList = Object.keys(dictionary);
             const builder = new levenshtein.Builder()
-                .dictionary(completion_list, false)  // generate spelling candidates from unsorted completion_list
+                .dictionary(completionList, false)  // generate spelling candidates from unsorted completion_list
                 .algorithm("transposition")          // use Levenshtein distance extended with transposition
                 .sort_candidates(true)               // sort the spelling candidates before returning them
                 .case_insensitive_sort(true)         // ignore character-casing while sorting terms
@@ -69,7 +69,7 @@ export default class SearchBox extends Component {
             searchTerm: word,
             wordSuggestions: [],
         }, () => {
-            this.handleDictionarySearch();
+            this.handleSearch();
         });
     }
 
@@ -100,7 +100,8 @@ export default class SearchBox extends Component {
                         <button
                             className="searchBtn"
                             type="button"
-                            onClick={this.handleDictionarySearch}
+                            onClick={this.handleSearch}
+                            disabled={!searchTerm}
                         >
                             Search
                         </button>
