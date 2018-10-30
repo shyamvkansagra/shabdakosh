@@ -71,3 +71,11 @@ button:disabled {
     font-size: 20px;
     cursor: pointer;
 }
+
+.noneFoundMsg {
+    margin: 30px auto;
+    font-family: unset;
+    font-weight: 100;
+    background-color: bisque;
+    width: fit-content;
+}
