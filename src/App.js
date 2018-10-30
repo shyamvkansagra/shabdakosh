@@ -1,40 +1,27 @@
 import React, { Component } from 'react';
-import './App.css';
+
+import mockBackend from './mockBackend';
+
 import SearchBox from './Components/SearchBox';
 import Loading from './Components/Loading';
+import './App.css';
 
 class App extends Component {
-    state = { dictionary: null, showLoading: false }
-
-    dictionaryTxtToObj = data => {
-        const dataArr = data.split('\n\n');
-        const dictionaryObj = {};
-        dataArr.forEach(d => {
-            const dataDefinition = d.split(' ');
-            const [dictionaryWord] = dataDefinition;
-            dataDefinition.shift();
-            const dictionaryDefinition = dataDefinition.join(' ');
-            dictionaryObj[dictionaryWord.toLowerCase()] = { dictionaryWord, dictionaryDefinition };
-        });
-       return dictionaryObj;
+    state = {
+        db: null,
+        suggester: null,
+        showLoading: true
     }
 
-    setDictionaryInState = () => fetch('https://raw.githubusercontent.com/shyamvkansagra/shabdakosh/development/dictionary.txt')
-        .then(res => res.text())
-        .then(data => this.setState({
-            dictionary: this.dictionaryTxtToObj(data),
-            showLoading: false
-        }))
-        .catch(err => console.log('Fetch Error:', err));
-
-    componentDidMount() {
-        if (!this.state.dictionary) {
-            this.setState({ showLoading: true }, this.setDictionaryInState);
+    async componentDidMount() {
+        if (!this.state.db) {
+            const { db, suggester } = await mockBackend();
+            this.setState({ db, suggester, showLoading: false });
         }
     }
 
     render() {
-        const { dictionary, showLoading } = this.state;
+        const { showLoading, db, suggester } = this.state;
         return (
             <div className="App">
             <header className="App-header">
@@ -42,7 +29,7 @@ class App extends Component {
             </header>
             {showLoading
                 ? <Loading loadingMsg="Dictionary is loading, please wait!" />
-                : <SearchBox dictionary={dictionary} />
+                : <SearchBox db={db} suggester={suggester} />
             }
             </div>
         );

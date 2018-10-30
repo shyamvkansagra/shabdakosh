@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import levenshtein from 'liblevenshtein';
 
 // Import styles
 import './style.css';
@@ -14,6 +13,7 @@ export default class SearchBox extends Component {
         dictionaryWord: '',
         dictionaryDefinition: '',
         wordSuggestions: [],
+        noneFound: false,
     };
 
     handleSearchChange = e => {
@@ -22,55 +22,46 @@ export default class SearchBox extends Component {
             this.setState({
                 searchTerm: '',
                 wordSuggestions: [],
+                noneFound: false,
             })
         } else {
-            // User is entering the data
+            // user is entering the data
             this.setState({ searchTerm: e.target.value });
         }
-
     }
 
     handleSearch = () => {
         const { searchTerm } = this.state;
-        const { dictionary } = this.props;
+        const { db, suggester } = this.props;
         
-        const searchResult = dictionary[searchTerm.toLowerCase()];
-        
-        if (searchResult) {
-            // Match found!
-            this.setState({
-                dictionaryWord: searchResult.dictionaryWord,
-                dictionaryDefinition: searchResult.dictionaryDefinition,
-                wordSuggestions: [],
-            });
-        } else {
-            // Maybe there was typo
-            const completionList = Object.keys(dictionary);
-            const builder = new levenshtein.Builder()
-                .dictionary(completionList, false)  // generate spelling candidates from unsorted completion_list
-                .algorithm("transposition")          // use Levenshtein distance extended with transposition
-                .sort_candidates(true)               // sort the spelling candidates before returning them
-                .case_insensitive_sort(true)         // ignore character-casing while sorting terms
-                .include_distance(false)             // just return the ordered terms (drop the distances)
-                .maximum_candidates(3);
+        db.findOne(
+            { word: searchTerm.toLowerCase() },
+            (err, doc) => {
+                if (doc) {
+                    return this.setState({
+                        dictionaryWord: doc.dictionaryWord,
+                        dictionaryDefinition: doc.dictionaryDefinition,
+                        wordSuggestions: [],
+                        noneFound: false,
+                    });
+                }
 
-            const MAX_EDIT_DISTANCE = 2;
- 
-            const transducer = builder.build();
+                const MAX_EDIT_DISTANCE = 2;
+                const wordSuggestions = suggester.transduce(searchTerm, MAX_EDIT_DISTANCE);
 
-            const wordSuggestions = transducer.transduce(searchTerm, MAX_EDIT_DISTANCE);
-            this.setState({ wordSuggestions, dictionaryWord: '', dictionaryDefinition: '' });
-        }
+                return this.setState({
+                    wordSuggestions,
+                    dictionaryWord: '',
+                    dictionaryDefinition: '',
+                    noneFound: wordSuggestions.length === 0,
+                })
+            }
+        );
     }
 
     searchSuggestedWord = e => {
         const { word } = e.currentTarget.dataset;
-        this.setState({
-            searchTerm: word,
-            wordSuggestions: [],
-        }, () => {
-            this.handleSearch();
-        });
+        this.setState({ searchTerm: word, wordSuggestions: [], noneFound: false }, this.handleSearch);
     }
 
     render() {
@@ -79,6 +70,7 @@ export default class SearchBox extends Component {
             dictionaryWord,
             dictionaryDefinition,
             wordSuggestions,
+            noneFound,
         } = this.state;
         const showSuggestions = !dictionaryWord && !dictionaryDefinition && wordSuggestions;
 
@@ -120,7 +112,13 @@ export default class SearchBox extends Component {
                             <p>(Click any above suggested word for instant search)</p>
                         </div>
                     )
-                    : (<React.Fragment />)
+                    : (noneFound
+                        ? (
+                            <div className="noneFoundMsg">
+                                <span>Nothing found! 🙊 says, "Hmm, maybe this Shabdakosh is not as cool as I thought!" </span>
+                            </div>
+                        ) : null
+                    )
                     }
                 </div>
                 {dictionaryWord && dictionaryDefinition &&
