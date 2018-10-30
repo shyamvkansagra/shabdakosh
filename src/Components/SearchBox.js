@@ -32,31 +32,20 @@ export default class SearchBox extends Component {
 
     handleSearch = () => {
         const { searchTerm } = this.state;
-        const { db, suggester } = this.props;
         
-        db.findOne(
-            { word: searchTerm.toLowerCase() },
-            (err, doc) => {
-                if (doc) {
-                    return this.setState({
-                        dictionaryWord: doc.dictionaryWord,
-                        dictionaryDefinition: doc.dictionaryDefinition,
-                        wordSuggestions: [],
-                        noneFound: false,
-                    });
+        fetch(
+            `http://localhost:8080/dictionary/${searchTerm}`,
+            {
+                method: 'get',
+                mode: 'no-cors',
+                headers: {
+                    'Accept': 'application/json'
                 }
-
-                const MAX_EDIT_DISTANCE = 2;
-                const wordSuggestions = suggester.transduce(searchTerm, MAX_EDIT_DISTANCE);
-
-                return this.setState({
-                    wordSuggestions,
-                    dictionaryWord: '',
-                    dictionaryDefinition: '',
-                    noneFound: wordSuggestions.length === 0,
-                })
             }
-        );
+        )
+            .then(res => res.json())
+            .then(json => JSON.parse(json))
+            .then(stateObj => this.setState(stateObj));
     }
 
     searchSuggestedWord = e => {

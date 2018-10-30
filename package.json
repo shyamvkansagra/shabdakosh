@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@babel/helper-remap-async-to-generator": "^7.1.0",
+    "express": "^4.16.4",
     "liblevenshtein": "^2.0.4",
     "nedb": "^1.8.0",
+    "node-fetch": "^2.2.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts": "2.0.5"
@@ -14,11 +16,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "node server/index.js && npm run start"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://localhost:8080",
   "browserslist": [
     ">0.2%",
     "not dead",

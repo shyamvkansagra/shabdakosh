@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
 
-import mockBackend from './mockBackend';
-
-import SearchBox from './Components/SearchBox';
-import Loading from './Components/Loading';
+import SearchBox from './components/SearchBox';
+import Loading from './components/Loading';
 import './App.css';
 
 class App extends Component {
-    state = {
-        db: null,
-        suggester: null,
-        showLoading: true
-    }
-
-    async componentDidMount() {
-        if (!this.state.db) {
-            const { db, suggester } = await mockBackend();
-            this.setState({ db, suggester, showLoading: false });
-        }
-    }
-
+    state = { showLoading: false };
     render() {
-        const { showLoading, db, suggester } = this.state;
+        const { showLoading } = this.state;
         return (
             <div className="App">
             <header className="App-header">
@@ -29,7 +15,7 @@ class App extends Component {
             </header>
             {showLoading
                 ? <Loading loadingMsg="Dictionary is loading, please wait!" />
-                : <SearchBox db={db} suggester={suggester} />
+                : <SearchBox />
             }
             </div>
         );
