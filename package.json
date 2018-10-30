@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/helper-remap-async-to-generator": "^7.1.0",
     "liblevenshtein": "^2.0.4",
     "nedb": "^1.8.0",
     "react": "^16.6.0",
