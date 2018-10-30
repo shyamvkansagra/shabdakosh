@@ -44,7 +44,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          Welcome to "Shabdakosh"
+          Welcome to Shabdakosh
         </header>
         <SearchBox dictionary={dictionary} />
       </div>

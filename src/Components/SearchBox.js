@@ -76,18 +76,18 @@ export default class SearchBox extends Component {
     render() {
         const { searchTerm, dictionaryWord, dictionaryDefinition, wordSuggestions } = this.state;
         const showSuggestions = !dictionaryWord && !dictionaryDefinition && wordSuggestions;
-        
+
         return (
             <div>
                 <div className="searchContainer">
                     <span className="labelMsg">
-                        <p>Want to know the meaning of that cool word you came across? Type below:</p>
+                        <p>Know the meaning of that cool word you came across:</p>
                     </span>
                     <div className="searchBox">
                         <input
                             id="search"
                             name="Search"
-                            placeholder="Your text goes here..."
+                            placeholder="Your word goes here..."
                             type="text"
                             onChange={this.handleSearchChange}
                             value={searchTerm}

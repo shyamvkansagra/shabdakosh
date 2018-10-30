@@ -11,9 +11,10 @@
 .searchBox input {
     width: 50%;
     border: 4px solid grey;
+    border-right: none;
     padding: 6px;
     height: 20px;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     outline: none;
     font-size: 16px;
 }
@@ -21,13 +22,14 @@
 .searchBox button {
     width: 100px;
     height: 40px;
-    border: 1px solid grey;
+    border: 4px solid grey;
+    border-left: none;
     background: #00B4CC;
     text-align: center;
     color: #fff;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 button:focus {outline: 0}
@@ -36,6 +38,10 @@ button:focus {outline: 0}
     text-align: left;
     padding: 50px 200px 50px 200px;
     font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
 }
 
 .definitionContainer span {
