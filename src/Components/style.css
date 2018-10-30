@@ -65,4 +65,5 @@ button:focus {outline: 0}
     background: yellow;
     margin: 4px;
     font-size: 20px;
+    cursor: pointer;
 }
