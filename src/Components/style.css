@@ -15,7 +15,6 @@
     height: 20px;
     border-radius: 6px;
     outline: none;
-    color: #9DBFAF;
 }
 
 .searchBox button {
@@ -30,8 +29,18 @@
     font-size: 20px;
 }
 
+button:focus {outline: 0}
+
 .definitionContainer {
     text-align: left;
     padding: 50px 200px 50px 200px;
     font-family: monospace;
+}
+
+.definitionContainer span {
+    font-size: 40px;
+}
+
+.definitionContainer p {
+    font-size: 20px;
 }

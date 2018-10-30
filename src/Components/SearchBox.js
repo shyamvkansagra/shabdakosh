@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 import WordDescription from './WordDescription';
-import setDB from '../db/setDB';
 import './style.css';
 
 export default class SearchBox extends Component {
-    componentDidMount() {
-        const isDBSet = window.localStorage.getItem('isDBSet');
-        if (!isDBSet) {
-            const result = setDB();
-            if (result === 'success') {
-                window.localStorage.setItem('isDBSet', true);
-            }
+    state = {
+        searchTerm: '',
+        dictionaryWord: '',
+        dictionaryDefinition: '',
+    };
+
+    handleSearchChange = e =>
+        this.setState({ searchTerm: e.target.value })
+
+    handleDictionarySearch = () => {
+        const { searchTerm } = this.state;
+        const { dictionary } = this.props;
+
+        const searchResult = dictionary[searchTerm.toLowerCase()];
+        if (searchResult) {
+            this.setState({
+                dictionaryWord: searchResult.dictionaryWord,
+                dictionaryDefinition: searchResult.dictionaryDefinition,
+            });
         }
     }
 
     render() {
+        const { searchTerm, dictionaryWord, dictionaryDefinition } = this.state;
         return (
             <div>
                 <div className="searchContainer">
@@ -22,11 +34,29 @@ export default class SearchBox extends Component {
                         <p>Want to know the meaning of that cool word you came across? Type below:</p>
                     </span>
                     <div className="searchBox">
-                        <input id="search" name="Search" placeholder="Your text goes here..." type="text" />
-                        <button className="searchBtn" type="button">Search</button>
+                        <input
+                            id="search"
+                            name="Search"
+                            placeholder="Your text goes here..."
+                            type="text"
+                            onChange={this.handleSearchChange}
+                            value={searchTerm}
+                        />
+                        <button
+                            className="searchBtn"
+                            type="button"
+                            onClick={this.handleDictionarySearch}
+                        >
+                            Search
+                        </button>
                     </div>
                 </div>
-                <WordDescription />
+                {dictionaryWord && dictionaryDefinition &&
+                    <WordDescription
+                        dictionaryWord={dictionaryWord}
+                        dictionaryDefinition={dictionaryDefinition}
+                    />
+                }
             </div>
         );
     }

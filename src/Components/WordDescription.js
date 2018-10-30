@@ -3,11 +3,12 @@ import './style.css';
 
 export default class SearchBox extends Component {
     render() {
+        const { dictionaryWord, dictionaryDefinition } = this.props;
         return (
             <div>
                 <div className="definitionContainer">
-                    <span>Your Word</span>
-                    <p>Entire description as it is</p>
+                    <span className="dictionaryWord">{dictionaryWord}</span>
+                    <p className="dictionaryDefinition">{dictionaryDefinition}</p>
                 </div>
             </div>
         );
