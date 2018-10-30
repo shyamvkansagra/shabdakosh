@@ -74,7 +74,12 @@ export default class SearchBox extends Component {
     }
 
     render() {
-        const { searchTerm, dictionaryWord, dictionaryDefinition, wordSuggestions } = this.state;
+        const {
+            searchTerm,
+            dictionaryWord,
+            dictionaryDefinition,
+            wordSuggestions,
+        } = this.state;
         const showSuggestions = !dictionaryWord && !dictionaryDefinition && wordSuggestions;
 
         return (
