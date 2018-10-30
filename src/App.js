@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import SearchBox from './Components/SearchBox';
-import Loading from './Components/Loading';
+import Dictionary from './components/Dictionary';
+import Loading from './components/Loading';
 
 class App extends Component {
     state = { dictionary: null, showLoading: false }
@@ -42,7 +42,7 @@ class App extends Component {
             </header>
             {showLoading
                 ? <Loading loadingMsg="Dictionary is loading, please wait!" />
-                : <SearchBox dictionary={dictionary} />
+                : <Dictionary dictionary={dictionary} />
             }
             </div>
         );
