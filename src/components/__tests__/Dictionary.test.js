@@ -8,6 +8,8 @@ configure({ adapter: new Adapter() });
 // Import handler functions
 import { searchHandler } from '../../state-handlers';
 
+import mockBackend from '../../mockBackend';
+
 // Import components
 import Dictionary from '../Dictionary';
 import WordSuggestion from '../WordSuggestion';
@@ -28,7 +30,7 @@ test('Search box should clear state if searched term is removed', () => {
 });
 
 test('Dictionary component renders correctly', () => {
-  const component = shallow(<Dictionary />);
+  const component = shallow(<Dictionary suggester={{}} db={{}} />);
   
   expect(component).toMatchSnapshot();
 });
@@ -49,9 +51,16 @@ test('Clicking suggested word should call searchSuggestedWord method with that w
 test('WordDescription component should have proper word', () => {
   const dictionaryWord = "Something";
   const wrapper = mount(
-    <WordDescription dictionaryWord={dictionaryWord} />
+    <WordDescription dictionaryWord={dictionaryWord} dictionaryDefinition="" />
   );
   const span = wrapper.find('.dictionaryWord');
   
   expect(span.text()).toBe('Something');
+});
+
+test('Searched word, if found, should fetch correct word', async () => {
+	const { db } = await mockBackend();
+	db.findOne({ word: "hi" }, (err, doc) => {
+		expect(doc.dictionaryWord).toBe('Hi');
+	});
 });
