@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dictionary component renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Dictionary />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="searchContainer"
+        >
+          <span
+            className="labelMsg"
+          >
+            <p>
+              Know the meaning of that cool word you came across:
+            </p>
+          </span>
+          <WordDescription
+            handleSearch={[Function]}
+            handleSearchChange={[Function]}
+            searchTerm=""
+          />
+        </div>,
+        "",
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <span
+              className="labelMsg"
+            >
+              <p>
+                Know the meaning of that cool word you came across:
+              </p>
+            </span>,
+            <WordDescription
+              handleSearch={[Function]}
+              handleSearchChange={[Function]}
+              searchTerm=""
+            />,
+            null,
+          ],
+          "className": "searchContainer",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <p>
+                Know the meaning of that cool word you came across:
+              </p>,
+              "className": "labelMsg",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Know the meaning of that cool word you came across:",
+              },
+              "ref": null,
+              "rendered": "Know the meaning of that cool word you came across:",
+              "type": "p",
+            },
+            "type": "span",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "handleSearch": [Function],
+              "handleSearchChange": [Function],
+              "searchTerm": "",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          null,
+        ],
+        "type": "div",
+      },
+      "",
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="searchContainer"
+          >
+            <span
+              className="labelMsg"
+            >
+              <p>
+                Know the meaning of that cool word you came across:
+              </p>
+            </span>
+            <WordDescription
+              handleSearch={[Function]}
+              handleSearchChange={[Function]}
+              searchTerm=""
+            />
+          </div>,
+          "",
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <span
+                className="labelMsg"
+              >
+                <p>
+                  Know the meaning of that cool word you came across:
+                </p>
+              </span>,
+              <WordDescription
+                handleSearch={[Function]}
+                handleSearchChange={[Function]}
+                searchTerm=""
+              />,
+              null,
+            ],
+            "className": "searchContainer",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <p>
+                  Know the meaning of that cool word you came across:
+                </p>,
+                "className": "labelMsg",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Know the meaning of that cool word you came across:",
+                },
+                "ref": null,
+                "rendered": "Know the meaning of that cool word you came across:",
+                "type": "p",
+              },
+              "type": "span",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "handleSearch": [Function],
+                "handleSearchChange": [Function],
+                "searchTerm": "",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            null,
+          ],
+          "type": "div",
+        },
+        "",
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

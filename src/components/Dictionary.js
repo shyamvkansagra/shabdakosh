@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import levenshtein from 'liblevenshtein';
+import PropTypes from 'prop-types';
+import * as Sentry from '@sentry/browser';
 
 // Import styles
 import './style.css';
@@ -8,28 +9,36 @@ import './style.css';
 import SearchBox from './SearchBox';
 import WordDescription from './WordDescription';
 import WordSuggestion from './WordSuggestion';
+import { searchHandler } from '../state-handlers';
 
 export default class Dictionary extends Component {
+    static propTypes = {
+        db: PropTypes.object.isRequired,
+        suggester: PropTypes.object.isRequired,
+    };
+
     state = {
         searchTerm: '',
         dictionaryWord: '',
         dictionaryDefinition: '',
         wordSuggestions: [],
         noneFound: false,
+        error: null,
     };
 
+    componentDidCatch(error, errorInfo) {
+      this.setState({ error });
+      Sentry.withScope(scope => {
+        Object.keys(errorInfo).forEach(key => {
+          scope.setExtra(key, errorInfo[key]);
+        });
+        Sentry.captureException(error);
+      });
+    }
+
     handleSearchChange = e => {
-        if (this.state.searchTerm && !e.target.value) {
-            // search term was reset
-            this.setState({
-                searchTerm: '',
-                wordSuggestions: [],
-                noneFound: false,
-            })
-        } else {
-            // user is entering the data
-            this.setState({ searchTerm: e.target.value });
-        }
+        const newStateObj = searchHandler(this.state.searchTerm, e.target.value);
+        this.setState(newStateObj);
     }
 
     handleSearch = () => {

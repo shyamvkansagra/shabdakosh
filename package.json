@@ -4,11 +4,15 @@
   "private": true,
   "dependencies": {
     "@babel/helper-remap-async-to-generator": "^7.1.0",
+    "@sentry/browser": "^4.2.4",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "liblevenshtein": "^2.0.4",
     "nedb": "^1.8.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.0.5"
+    "react-scripts": "2.0.5",
+    "react-test-renderer": "^16.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
