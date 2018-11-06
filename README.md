@@ -38,6 +38,19 @@ Now, as the flow of the application was figured out, I had to stitch all the par
 I have also started working on express server for the application to setup an actual server to read the database. This is work in progress currently and can be referred in `development` branch of this project.
 
 
+### Testing, Debugging and Logging
+`create-react-app` provides `jest` for testing by default. I used the same to write some unit tests of my own. I mocked the behavior of my application in those tests with some mock data to ensure whether correct output is generated.
+
+To run tests in the application, you can write the following command in terminal:
+`npm test`
+
+To check the report of testing, type below command in terminal:
+`npm test -- --coverage`
+
+While developing the application, I used 'React Dev Tools' Google Chrome extension to pinpoint my broken component. (Link: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) We can also add 'breakpoints/pause' in debugger of our browser to debug any issue. Terminal should also be checked for errors if any. Run time errors can be checked in browser's console logs. If there are any API calls involved, we can check the errors in 'Network' tab of our browser debugging tools.
+
+To log any uncaught exceptions, I used 'Sentry' and configured my application according to their instructions. I broke my application manually to check the issue getting logged and it was successful. Now I can keep track of any bugs/issues at any point in my application.
+
 ### Future improvements
 While development phase, few thoughts came to me about the further development of this application. Below are the few ideas which can actually enhance and make this dictionary a full stack web application.
 
